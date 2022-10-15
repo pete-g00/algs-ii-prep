@@ -10,7 +10,7 @@ class Line {
   /// Constructs a line given two points on it- [p1] and [p2]
   const Line(this.p1, this.p2);
 
-  double get _dx => p1.x - p2.y;
+  double get _dx => p1.x - p2.x;
   double get _dy => p1.y - p2.y;
 
   /// Checks whether ths line intersects the line [other].
