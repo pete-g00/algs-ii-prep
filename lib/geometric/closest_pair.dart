@@ -1,5 +1,4 @@
-import 'dart:math' show min, sqrt;
-import 'lines.dart';
+part of '../geometric.dart';
 
 double closestPair(List<Point> points) {
   print('> Determining the closest pair of points in the list $points');
@@ -99,12 +98,12 @@ List<Point> filterPoints(List<Point> points, int i, int k, double d, double mid)
   return filteredPoints;
 }
 
-void main(List<String> args) {
-  final points = [
-    Point(0, 1), Point(1, 1.5), Point(1.2, 1.2), Point(2, 1),
-    Point(2.75, 1), Point(3, 1.5), Point(4, 0), Point(5, 1)
-  ];
-  print(
-    closestPair(points)
-  );
-}
+// void main(List<String> args) {
+//   final points = [
+//     Point(0, 1), Point(1, 1.5), Point(1.2, 1.2), Point(2, 1),
+//     Point(2.75, 1), Point(3, 1.5), Point(4, 0), Point(5, 1)
+//   ];
+//   print(
+//     closestPair(points)
+//   );
+// }

@@ -1,5 +1,4 @@
-import './intersection.dart';
-import 'dart:math' show atan2, pow;
+part of '../geometric.dart';
 
 /// Given a list of points, this algorithm reorders them so that the points can be connected to form a simple polygon going through the points.
 /// 
@@ -116,9 +115,9 @@ List<Point> grahamScan(List<Point> points) {
   return convexHull;
 }
 
-void main(List<String> args) {
-  final points = [
-    Point(0, 0), Point(4, 0), Point(1, 3), Point(2, 2), Point(3, 1), Point(2, 1)
-  ];
-  print(grahamScan(points));
-}
+// void main(List<String> args) {
+//   final points = [
+//     Point(0, 0), Point(4, 0), Point(1, 3), Point(2, 2), Point(3, 1), Point(2, 1)
+//   ];
+//   print(grahamScan(points));
+// }
