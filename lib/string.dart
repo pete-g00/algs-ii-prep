@@ -1,3 +1,5 @@
+library string;
+
 import 'dart:math' show max;
 import 'dart:io' show stdout, File;
 import 'dart:collection' show Queue;
@@ -88,5 +90,5 @@ void _latexPrintTuple<E>(List<List<E>> l1, List<List<E>> l2) {
 // }
 
 void main(List<String> args) {
-  print(rowSmithWaterman('DGACTA', 'ADGGAGTAC'));
+  print(tableSmithWaterman('abacbadecadbe', 'dcadcabdcbeba'));
 }

@@ -1,3 +1,5 @@
+library geometric;
+
 import 'package:quiver/core.dart' show hash2;
 import 'dart:math' show pow, sqrt, atan2, min, max;
 import 'package:binary_tree/binary_tree.dart';
