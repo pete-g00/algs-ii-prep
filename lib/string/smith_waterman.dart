@@ -21,7 +21,7 @@ int tableSmithWaterman(String s1, String s2) {
     }
   }
   
-  _latexPrint(table);
+  latexPrint(table);
   var x0 = x1;
   var y0 = y1;
 
@@ -57,8 +57,8 @@ int rowSmithWaterman(String s1, String s2) {
   var x1 = 0;
   var y1 = 0;
 
-  _latexPrint([row]);
-  _latexPrintTuple([ys], [xs]);
+  latexPrint([row]);
+  latexPrintTuple([ys], [xs]);
 
   for (var i=1; i<s1.length+1; i++) {
     for (var j=1; j<s2.length+1; j++) {
@@ -109,8 +109,8 @@ int rowSmithWaterman(String s1, String s2) {
     yDiag = 0;
     xs[0] = i;
 
-    _latexPrint([row]);
-    _latexPrintTuple([ys], [xs]);
+    latexPrint([row]);
+    latexPrintTuple([ys], [xs]);
   }
   
   print('The extent is s1[$x0..$x1] and s2[$y0..$y1]');

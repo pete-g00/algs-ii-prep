@@ -1,21 +1,5 @@
 part of '../hard.dart';
 
-bool subsetProblemList(List<int> values, int target) {
-  final matches = [0];
-  for (var i = 0; i < values.length; i++) {
-    final len = matches.length;
-    print(matches);
-    for (var j = 0; j < len; j++) {
-      final match = values[i] + matches[j];
-      matches.add(match);
-      if (match == target) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
 List<List<bool>> _subsetProblemTable(List<int> values, int target) {
   final matches = List.generate(values.length+1, (i) => List.filled(target+1, false));
   matches[0][0] = true;
@@ -35,7 +19,7 @@ List<List<bool>> _subsetProblemTable(List<int> values, int target) {
 
 bool subsetProblemDP(List<int> values, int target) {
   final matches = _subsetProblemTable(values, target);
-  _prettyPrint(matches);
+  prettyPrint(matches);
 
   return matches[values.length][target];
 }
@@ -45,7 +29,7 @@ List<int>? subsetProblemDPWithTraceback(List<int> values, int target) {
   if (!matches[values.length][target]) {
     return null;
   }
-  _prettyPrint(matches);
+  prettyPrint(matches);
 
   final subset = <int>[];
   // go to the top => where did this true come from (look at the line above)

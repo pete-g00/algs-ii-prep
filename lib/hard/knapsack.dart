@@ -17,14 +17,14 @@ List<List<int>> _knapsackTable(List<int> profits, List<int> weights, int capacit
 
 int knapsackDP(List<int> profits, List<int> weights, int capacity) {
   final table = _knapsackTable(profits, weights, capacity);
-  _latexPrint(table);
+  latexPrint(table);
 
   return table[profits.length][capacity];
 }
 
 List<int> knapsackWithTraceback(List<int> profits, List<int> weights, int capacity) {
   final table = _knapsackTable(profits, weights, capacity);
-  _prettyPrint(table);
+  prettyPrint(table);
   
   final subset = <int>[];
   // go to the top => where did this true come from (look at the line above)
@@ -44,7 +44,8 @@ List<int> knapsackWithTraceback(List<int> profits, List<int> weights, int capaci
 }
 
 // void main(List<String> args) {
-//   List<int> profits = [5, 9, 6, 7];
-//   List<int> weights = [1, 3, 4, 1];
-//   print(knapsackDP(profits, weights, 4));
+
+//   List<int> profits = [33, 24, 11, 35, 11];
+//   List<int> weights = [23, 15, 15, 33, 32];
+//   print(knapsackDP(profits, weights, 65));
 // }

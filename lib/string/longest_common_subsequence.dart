@@ -15,7 +15,7 @@ List<List<int>> _tableLCSq(String s1, String s2) {
     print('The row is ${table[i]}');
   }
   print('The final table is: ');
-  _prettyPrint(table);
+  prettyPrint(table);
   print('So, the LCSq has length ${table[s1.length][s2.length]}');
   
   return table;
@@ -110,7 +110,7 @@ int tableMemoisedLCSq(String s1, String s2) {
   
   _tableMemoisedLCSq(s1, s2, s1.length, s2.length, values);
   print('Computed all the required values. The table is:');
-  _prettyPrint(values);
+  prettyPrint(values);
   print('So, the LCSq is ${values[s1.length][s2.length]}');
 
   return values[s1.length][s2.length];
@@ -158,9 +158,9 @@ int spaceMemoisedLCSq(String s1, String s2) {
 
   _spaceMemoisedLCSq(s1, s2, s1.length, s2.length, values, pointers, placedValues);
   print('The final table of values is: ');
-  _prettyPrint(values);
+  prettyPrint(values);
   print('The final list of pointers (for the table) is: ');
-  _prettyPrint(pointers);
+  prettyPrint(pointers);
   print('The final list of pointers (of values wrt table) is:');
   print(placedValues);
   print('So, the LCSq is ${values[s1.length][s2.length]}');
