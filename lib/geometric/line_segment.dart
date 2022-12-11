@@ -1,8 +1,5 @@
 part of '../geometric.dart';
 
-// TODO: Implement separate intersect functions for vertical and horizontal line segments
-
-
 abstract class LineSegment {
   /// The first point on the line segment
   Point get p1;

@@ -93,8 +93,13 @@ void simplePolygon(List<Point> points) {
   }
 }
 
-double orientation(Point p, Point q, Point r) => (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+double _orientation(Point p, Point q, Point r) => (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
 
+/// Computes the convex hull of the given list of [points].
+/// 
+/// A convex hull is a convex polygon that covers all the points given.
+/// 
+/// Must have at least 3 points. Throws an error if all the points are collinear.
 List<Point> grahamScan(List<Point> points) {
   simplePolygon(points);
   print('> After sorting the points, the order is $points');
@@ -105,7 +110,7 @@ List<Point> grahamScan(List<Point> points) {
   for (var i = 3; i < points.length; i++) {
     print('> Adding points[$i] = ${points[i]} to the convex hull');
     // negative => angle is greater than pi
-    while (orientation(convexHull[convexHull.length-2], convexHull[convexHull.length-1], points[i]) < 0) {
+    while (_orientation(convexHull[convexHull.length-2], convexHull[convexHull.length-1], points[i]) < 0) {
       print('> Going from the line ${convexHull[convexHull.length-2]} to ${convexHull[convexHull.length-1]} to the line ${convexHull[convexHull.length-1]} to ${points[i]}, we make a left turn- we remove ${convexHull[convexHull.length-1]}');
       convexHull.removeAt(convexHull.length-1);
     }
@@ -114,10 +119,3 @@ List<Point> grahamScan(List<Point> points) {
 
   return convexHull;
 }
-
-// void main(List<String> args) {
-//   final points = [
-//     Point(0, 0), Point(4, 0), Point(1, 3), Point(2, 2), Point(3, 1), Point(2, 1)
-//   ];
-//   print(grahamScan(points));
-// }

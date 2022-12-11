@@ -1,5 +1,6 @@
 part of '../geometric.dart';
 
+/// Given a list of [points], computes the distance of the shortest pair of points.
 double closestPair(List<Point> points) {
   print('> Determining the closest pair of points in the list $points');
   if (points.length < 2) {
@@ -17,6 +18,7 @@ double closestPair(List<Point> points) {
   return sqrt(_cp(points, 0, points.length-1));
 }
 
+/// Computes the closest pair between points[i] and points[j]
 double _cp(List<Point> points, int i, int k) {
   print('> Computing the closest pair between points[$i] and points[$k]');
   if (i == k) {
@@ -37,7 +39,7 @@ double _cp(List<Point> points, int i, int k) {
   print('> After the merge, the points are now in the following order: $points');
 
   print('> Filtering the points within square root of $d of the midpoint line x=$mid within points[$i] and points[$k]');
-  final filteredPoints = filterPoints(points, i, k, sqrt(d), mid);
+  final filteredPoints = _filterPoints(points, i, k, sqrt(d), mid);
   print('> These points are $filteredPoints');
 
   print('> Improving best distance using the filtered points');
@@ -56,6 +58,7 @@ double _cp(List<Point> points, int i, int k) {
   return d;
 }
 
+/// Merges the sublists points[i..j] and points[j..k]
 void _merge(List<Point> points, int i, int j, int k) {
   if (i+1 <= k) {
     print('> Merging ${points.sublist(i, j+1)} with ${points.sublist(j+1, k+1)}');
@@ -88,7 +91,8 @@ void _merge(List<Point> points, int i, int j, int k) {
   }
 }
 
-List<Point> filterPoints(List<Point> points, int i, int k, double d, double mid) {
+/// Filters the points in the list whose x-value is between mid - d and mid + d
+List<Point> _filterPoints(List<Point> points, int i, int k, double d, double mid) {
   final filteredPoints = <Point>[];
   for (var j = i; j <= k; j++) {
     if (points[j].x >= mid - d && points[j].x <= mid + d) {
@@ -97,13 +101,3 @@ List<Point> filterPoints(List<Point> points, int i, int k, double d, double mid)
   }
   return filteredPoints;
 }
-
-// void main(List<String> args) {
-//   final points = [
-//     Point(0, 1), Point(1, 1.5), Point(1.2, 1.2), Point(2, 1),
-//     Point(2.75, 1), Point(3, 1.5), Point(4, 0), Point(5, 1)
-//   ];
-//   print(
-//     closestPair(points)
-//   );
-// }
