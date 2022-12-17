@@ -1,6 +1,6 @@
 part of '../string.dart';
 
-// Computes the longest common substring in O(mn) time and space
+/// Computes the longest common substring in O(mn) time and space
 String tableLCSt(String s1, String s2) {
   print('Computing the LCSt of $s1 and $s2 using the classic DP table approach');
   final values = List.generate(s1.length+1, (index) => List.filled(s2.length+1, 0));
@@ -29,11 +29,12 @@ String tableLCSt(String s1, String s2) {
     print('The row is: ${values[i]}');
   }
 
-  print('The longest common substring is- ${s1.substring(s1Pos-maxLen+1, s1Pos+1)} at position $s1Pos in s1 and position $s2Pos in s2 with length $maxLen');
+  print('The longest common substring is- "${s1.substring(s1Pos-maxLen+1, s1Pos+1)}" at position $s1Pos in s1 and position $s2Pos in s2 with length $maxLen');
 
   return s1.substring(s1Pos-maxLen+1, s1Pos+1);
 }
 
+/// Computes the longest common substring in O(mn) time and O(n) space
 String rowLCSt(String s1, String s2) {
   print('Computing the LCSt of $s1 and $s2 using the DP approach, but only keeping track of the last row and the previous diagonal value');
   final row = List.filled(s2.length+1, 0);
@@ -53,7 +54,7 @@ String rowLCSt(String s1, String s2) {
         if (row[j] > maxLen) {
           s1Pos = i-1;
           maxLen = row[j];
-          print('Found a longer common substring- ${s1.substring(s1Pos-maxLen+1, s1Pos+1)}');
+          print('Found a longer common substring- "${s1.substring(s1Pos-maxLen+1, s1Pos+1)}"');
         }
       } else {
         row[j] = 0;
@@ -64,7 +65,7 @@ String rowLCSt(String s1, String s2) {
     diagonal = 0;
   }
   
-  print('The longest common substring is- ${s1.substring(s1Pos-maxLen+1, s1Pos+1)}');
+  print('The longest common substring is- "${s1.substring(s1Pos-maxLen+1, s1Pos+1)}"');
 
   return s1.substring(s1Pos-maxLen+1, s1Pos+1);
 }

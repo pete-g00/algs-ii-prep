@@ -2,7 +2,7 @@ library geometric;
 
 import 'package:quiver/core.dart' show hash2;
 import 'dart:math' show pow, sqrt, atan2, min, max;
-import 'package:binary_tree/binary_tree.dart';
+// import 'package:binary_tree/binary_tree.dart';
 
 part 'geometric/closest_pair.dart';
 part 'geometric/horizontal_vertical.dart';

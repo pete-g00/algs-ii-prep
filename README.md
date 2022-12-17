@@ -8,8 +8,7 @@ This repository contains all the classes created as part of the Algorithmics II 
     * closest pair of points (`closest_pair.dart`), and
     * intersection of a list of horizontal and vertical points (`horizontal_vertical.dart`)
 - string algorithms (`string/`)
-    * (suffix) tries (`trie_and_tree.dart`)- constructing a suffix trie given a string, finding the longest common substring (for 1 and 2 strings) and searching a string in the text
-    * (suffix) trees (`trie_and_tree.dart`)- constructing a suffix tree given a string, finding the longest common substring (for 1 and 2 strings) and searching a string in the text
+    * (suffix) trees (`tree.dart`)- constructing a suffix tree given a string, finding the longest common substring (for 1 and 2 strings) and searching a string in the text
     * ndfa (`ndfa.dart`) and regular expressions (`regular_exp.dart`)- constructing different ndfas for different regular expressions and matching regexp with a string
     * dynamic programming for longest common substring (`longest_common_substring.dart`) with O(n^2) space and O(n) space
     * dynamic programming for longest common subsequence (`longest_common_subsequence.dart`) with different variants

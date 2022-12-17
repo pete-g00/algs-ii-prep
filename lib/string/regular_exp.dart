@@ -3,18 +3,24 @@ part of '../string.dart';
 abstract class RegularExp {
   const RegularExp();
 
+  // TODO: Add parseString
+
+  /// Constructs a regular expression that matches the given string
   const factory RegularExp.fromString(String string) = _ConcreteRegularExp;
+  /// Concatenates two regular expressions that concatenates two regular expressions
   const factory RegularExp.concatenate(RegularExp exp1, RegularExp exp2) = _ConcatenatedRegularExp;
+  /// Given two regular expressions, constructs the regular expression that chooses between them
   const factory RegularExp.choice(RegularExp exp1, RegularExp exp2) = _ChoiceRegularExp;
+  /// Constructs the closure of the regular expression given
   const factory RegularExp.closure(RegularExp exp) = _ClosureRegularExp;
   // const factory RegularExp.bracket(RegularExp exp) = _BracketRegularExp;
 
   NDFA toNDFA();
 
+  /// Returns true if this regular expression occurs in the given [text].
   bool searchIn(String text) {
     final ndfa = toNDFA();
-
-    return false;
+    return ndfa.matches(text);
   }
 }
 
