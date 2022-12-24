@@ -1,14 +1,23 @@
 part of '../graph.dart';
 
+/// A vertex in the network
 class NetworkVertex {
   static int _value = 0;
 
   final int _id;
+  
+  /// The edges involving this vertex
   final List<NetworkEdge> edges;
+
+  /// Whether the vertex is a sink
   final bool isSink;
 
+  /// Constructs a network vertex.
+  /// 
+  /// The value [isSink] is by default `false`.
   NetworkVertex([this.isSink=false]):edges=[], _id=_value++;
 
+  /// Adds an edge from this vertex to another with the given capacity
   void addEdge(NetworkVertex v, int capacity) {
     final edge = NetworkEdge(this, v, capacity);
     edges.add(edge);
@@ -49,12 +58,20 @@ class NetworkEdge {
   }
 }
 
+/// A network graph
 class NetworkGraph {
+  /// The source vertex
   final NetworkVertex source;
+
+  /// The predecessor map (used in the max flow process)
   final _predecessorMap = <NetworkVertex, NetworkEdge>{};
 
+  /// Constructs a network graph given the source vertex
   NetworkGraph(this.source);
 
+  /// Computes the maximum flow for the network.
+  /// 
+  /// The edges will also have their capacity value updated as a result.
   int maxFlow() {
     var flow = 0;
 
@@ -74,6 +91,7 @@ class NetworkGraph {
     return flow;
   }
 
+  /// Computes an augmenting path with respect to the current capacity values
   NetworkVertex get _augmentedPath {
     print('Finding an augmented path in the graph');
 
@@ -117,6 +135,7 @@ class NetworkGraph {
     return vertex;
   }
 
+  /// Improve the flow given a sink (backwards update of capacity)
   int _improveFlow(NetworkVertex sink) {
     print('Improving the flow of the network');
 

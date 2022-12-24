@@ -1,12 +1,23 @@
 part of '../graph.dart';
 
+/// Represents a weighted graph.
 class WeightedGraph {
+  /// The weight matrix for the weighted graph
   final List<List<int?>> weightMatrix;
+
+  /// The length of the shortest paths between any two vertices (a matrix)
   final List<List<int?>> shortestPaths;
+
+  /// The previous shortest paths (used when finding the shortest paths)
   List<List<int?>> _prevShortestPaths;
+
+  /// The predecessor vertex between a path between any two vertices (a matrix)
   final List<List<int>> predecessors;
+  
+  /// The previous predecessors (used when finding the shortest paths)
   List<List<int>> _prevPredecessors;
 
+  /// Constructs a weighted graph given the [weightMatrix].
   WeightedGraph(this.weightMatrix):
   _prevShortestPaths = List.generate(
     weightMatrix.length, (i) => List.generate(weightMatrix.length, (j) => i == j ? 0 : weightMatrix[i][j])
@@ -17,8 +28,10 @@ class WeightedGraph {
   shortestPaths = List.generate(weightMatrix.length, (i) => List.filled(weightMatrix.length, -1)),
   predecessors = List.generate(weightMatrix.length, (i) => List.filled(weightMatrix.length, -1));
 
+  /// Whether there exists an edge from vertex [i] to vertex [j]
   bool hasEdge(int i, int j) => weightMatrix[i][j] != null;
 
+  /// Computes all pairs shortest paths using the Floyd-Warshall algorithm.
   void floydWarshall() {
     print('shortest path: $_prevShortestPaths');
     print('predecessors: $_prevPredecessors');
