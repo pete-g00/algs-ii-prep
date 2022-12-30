@@ -1,5 +1,6 @@
 part of '../hard.dart';
 
+/// Merges the 2 sorted lists [l1] and [l2] into another sorted list containing values less than the target
 List<int> _merge(List<int> l1, List<int> l2, int target) {
   final list = <int>[];
   var i = 0;
@@ -54,6 +55,9 @@ int subsetProblem(List<int> values, int target) {
   return matches[matches.length-1];
 }
 
+/// Merges the 2 sorted lists [l1] and [l2] while:
+/// - ensuring that no value bigger than target is taken, and
+/// - ensuring that between any two consecutive numbers, they are beyond the trim threshold [val].
 List<int> _mergeAndTrim(List<int> l1, List<int> l2, int target, double val) {
   final list = <int>[];
   var i = 0;
@@ -122,10 +126,4 @@ int subsetProblemTrimmed(List<int> values, int target, double val) {
 //   }
 
 //   return trimmed;
-// }
-
-// void main(List<String> args) {
-// //   print(subsetProblem([10, 11, 12, 15, 20, 21, 22, 23, 24, 29, 30], 200));
-// // x1=3, x2=7, x3=13, x4=15, x5=19, x6=21
-//   print(subsetProblemTrimmed([3, 7, 13, 15, 19, 21], 26, 1/6));
 // }

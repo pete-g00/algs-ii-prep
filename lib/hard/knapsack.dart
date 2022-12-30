@@ -15,6 +15,7 @@ List<List<int>> _knapsackTable(List<int> profits, List<int> weights, int capacit
   return table;
 }
 
+/// Given [profits], [weights] and [capacity], returns the maximum profit possible to achieve.
 int knapsackDP(List<int> profits, List<int> weights, int capacity) {
   final table = _knapsackTable(profits, weights, capacity);
   latexPrint(table);
@@ -22,6 +23,7 @@ int knapsackDP(List<int> profits, List<int> weights, int capacity) {
   return table[profits.length][capacity];
 }
 
+/// Given [profits], [weights] and [capacity], returns all the profits that can be achieved as a list
 List<int> knapsackWithTraceback(List<int> profits, List<int> weights, int capacity) {
   final table = _knapsackTable(profits, weights, capacity);
   prettyPrint(table);
@@ -42,10 +44,3 @@ List<int> knapsackWithTraceback(List<int> profits, List<int> weights, int capaci
 
   return subset;
 }
-
-// void main(List<String> args) {
-
-//   List<int> profits = [33, 24, 11, 35, 11];
-//   List<int> weights = [23, 15, 15, 33, 32];
-//   print(knapsackDP(profits, weights, 65));
-// }

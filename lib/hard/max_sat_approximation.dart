@@ -1,15 +1,21 @@
 part of '../hard.dart';
 
+/// Represents a clause in CNF
 class CNFClause {
+  /// The labels for each variable in the clause (index in the list of variables)
   final List<int> labels;
+  /// Whether the variable has been negated or not, with respect to the list of clauses
   final List<bool> isNegated;
   
+  /// Given a list of [labels] for variables and whether they are negated ([isNegated]), constructs a CNF clause
   const CNFClause(this.labels, this.isNegated);
 
-  bool assign(Map<String, bool> assignments) {
+  /// Given a list of assignments for the variables, returns whether the clause has been satisfied
+  bool assign(List<bool> assignments) {
     for (var i = 0; i < labels.length; i++) {
-      final assignment = assignments[labels[i]]!;
+      final assignment = assignments[labels[i]];
       if (isNegated[i] != assignment) {
+        print('Variable ${labels[i]} satisfied');
         return true;
       } 
     }
@@ -34,23 +40,29 @@ class CNFClause {
   }
 }
 
+/// Represents a CNF
 class CNF {
+  /// The clauses in the CNF
   final List<CNFClause> clauses;
+  /// The number of variables in the CNF
   final int varCount;
 
+  /// Given the [clauses] and the [varCount], constructs a CNF
   const CNF(this.clauses, this.varCount);
 
-  /// Given a map of [assignments], returns how many clauses in the CNF are satisfied.
-  int checkTrue(Map<String, bool> assignments) {
+  /// Given a list of variable [assignments], returns how many clauses in the CNF are satisfied.
+  int checkTrue(List<bool> assignments) {
     var j = 0;
     for (var i = 0; i < clauses.length; i++) {
       if (clauses[i].assign(assignments)) {
+        print('clause ${i+1} satisifed');
         j++;
       }
     }
     return j;
   }
 
+  /// Returns an assignment of the variables that is guaranteed to satisfy at least 1/2 of the clauses.
   List<bool> approximate() {
     print('Approximating the CNF');
     final assignments = List.filled(varCount, false);
@@ -159,13 +171,4 @@ class CNF {
 
     return buffer.toString();
   }
-}
-
-void main(List<String> args) {
-  final clause1 = CNFClause([0, 2], [false, false]);
-  final clause2 = CNFClause([0, 1], [true, false]);
-  final clause3 = CNFClause([1, 2], [true, true]);
-  final clause4 = CNFClause([0, 1], [false, false]);
-  final clauses = CNF([clause1, clause2, clause3, clause4], 3);
-  print(clauses.approximate());
 }

@@ -1,10 +1,17 @@
 part of '../hard.dart';
 
+/// A coloured graph represents a directed graph which has a colour (an integer index).
 class ColouredGraph {
+  /// The adjacency matrix for the directed graph
   final List<List<bool>> adjacencyMatrix;
+
+  /// The colours of the graph
   final List<int> colours;
+
+  /// Whether the graph has been fully coloured
   bool _coloured;
 
+  /// Constructs a coloured graph given the [adjacencyMatrix].
   ColouredGraph(this.adjacencyMatrix):colours=List.filled(adjacencyMatrix.length, -1), _coloured=false;
 
   /// Colour the vertex i using a colour between 1 and k
@@ -30,8 +37,10 @@ class ColouredGraph {
     }
   }
 
+  /// Given 2 vertex indices [i] and [j], determines whether there exists an edge between them.
   bool hasEdge(int i, int j) => adjacencyMatrix[i][j];
 
+  /// Is it a valid choice to colour this vertex the given colour
   bool _isValidChoice(int i) {
     for (var j = 0; j < i; j++) {
       if (hasEdge(i, j) && colours[i] == colours[j]) {
@@ -42,20 +51,11 @@ class ColouredGraph {
     return true;
   }
 
+  /// Tries to colour the graph using [k] vertices.
+  /// 
+  /// Returns `true` if possible, `false` otherwise.
   bool colour(int k) {
     _colour(0, k);
     return _coloured;
   }
 }
-
-// void main(List<String> args) {
-//   final adjacencyMatrix = [
-//     [false, false, true, true, false],
-//     [false, false, true, false, true],
-//     [true, true, false, true, true],
-//     [true, false, true, false, false],
-//     [false, true, true, false, false]
-//   ];
-//   final colouredGraph = ColouredGraph(adjacencyMatrix);
-//   print(colouredGraph.colour(3));
-// }

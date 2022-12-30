@@ -47,9 +47,3 @@ List<int>? subsetProblemDPWithTraceback(List<int> values, int target) {
 
   return subset;
 }
-
-// void main(List<String> args) {
-//   print(
-//     subsetProblemDPWithTraceback([1, 2, 4, 5], 8)
-//   );
-// }
