@@ -59,6 +59,20 @@ class Rectangle {
     return true;
   }
 
+  /// Computes the intersection between the two "normal" rectangles
+  Rectangle intersection(Rectangle other) {
+    final newBottomLeft = Point(
+      max(bottomLeft.x, other.bottomLeft.x),
+      max(bottomLeft.y, other.bottomLeft.y)
+    );
+    final newTopRight = Point(
+      min(topRight.x, other.topRight.x),
+      min(topRight.y, other.topRight.y)
+    );
+
+    return Rectangle(newBottomLeft, newTopRight);
+  }
+
   @override
   String toString() => 'Rectangle with corners $p1 and $p2';
 }

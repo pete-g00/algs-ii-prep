@@ -8,16 +8,16 @@ part of '../geometric.dart';
 /// - if they don't match, use that ordering
 /// - otherwise, if either one satisfies [isStart], then return that one first
 /// 
-class _HorizontalLineTuple implements Comparable<_HorizontalLineTuple> {
-  final HorizontalLineSegment line;
+class _LineTuple<T extends LineSegment> implements Comparable<_LineTuple> {
+  final T line;
   final bool isStart;
 
-  const _HorizontalLineTuple(this.line, this.isStart);
+  const _LineTuple(this.line, this.isStart);
 
   double get x => isStart ? line.p1.x : line.p2.x;
 
   @override
-  int compareTo(_HorizontalLineTuple other) {
+  int compareTo(_LineTuple other) {
     final x1 = x;
     final x2 = other.x;
 
@@ -47,17 +47,16 @@ class _HorizontalLineTuple implements Comparable<_HorizontalLineTuple> {
 /// Given a list of horizontal line segments and vertical line segments, computes how many times they intersect
 int intersection(List<HorizontalLineSegment> horizontals, List<VerticalLineSegment> verticals) {
   print('Computing the number of intersections between the given list of horizontal and vertical line segments');
+  
   print('Sorting the vertical line segments with respect to their y-coordinate');
-  // sort the vertical segments wrt y value
   verticals.sort((a, b) => a.constant.compareTo(b.constant));
   print('The sorted list is: $verticals');
   
   print('Sorting the horizontal line segments with respect to the x-coordinate (both at start and end)');
-  // construct the horizontal segments and sort them
-  final horizontalTuples = <_HorizontalLineTuple>[];
+  final horizontalTuples = <_LineTuple<HorizontalLineSegment>>[];
   for (var i = 0; i < horizontals.length; i++) {
-    horizontalTuples.add(_HorizontalLineTuple(horizontals[i], true));
-    horizontalTuples.add(_HorizontalLineTuple(horizontals[i], false));
+    horizontalTuples.add(_LineTuple(horizontals[i], true));
+    horizontalTuples.add(_LineTuple(horizontals[i], false));
   }
   horizontalTuples.sort();
   print('The sorted list is: $horizontalTuples');
@@ -113,6 +112,7 @@ int intersection(List<HorizontalLineSegment> horizontals, List<VerticalLineSegme
 
 /// Counts the number of elements in the tree that lie between start and end
 int _search(Set<double> values, double start, double end) {
+  print('Finding values between $start and $end');
   var count = 0;
   for (var value in values) {
     if (value >= start && value <= end) {
