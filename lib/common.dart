@@ -13,12 +13,24 @@ void prettyPrint<E>(List<List<E>> list) {
 }
 
 void latexPrint<E>(List<List<E>> list) {
+  stdout.writeln("\\begin{tabular}{${List.filled(list[0].length, "c").join("|")}}");
   for (var i=0; i < list.length-1; i++) {
+    stdout.write("\t");
     stdout.write(list[i].join(" & "));
     stdout.writeln(' \\\\');
+    stdout.writeln('\t\\hline');
   }
-  stdout.write(list[list.length-1].join(" & "));
-  stdout.writeln();
+  stdout.write("\t");
+  stdout.writeln(list[list.length-1].join(" & "));
+  stdout.writeln("\\end{tabular}");
+}
+
+void main(List<String> args) {
+  final table = [
+    [1, 2, 0],
+    [3, 4, 5]
+  ];
+  latexPrint(table);
 }
 
 void latexPrintTuple<E>(List<List<E>> l1, List<List<E>> l2) {

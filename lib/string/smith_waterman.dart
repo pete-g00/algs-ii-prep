@@ -1,6 +1,15 @@
 part of '../string.dart';
 
-int tableSmithWaterman(String s1, String s2) {
+class _TableData {
+  final List<List<int>> table;
+  final int x1;
+  final int y1;
+  final int maxLen;
+
+  _TableData(this.table, this.x1, this.y1, this.maxLen);
+}
+
+_TableData _tableSmithWaterman(String s1, String s2) {
   final table = List.generate(s1.length+1, (index) => List.filled(s2.length+1, 0));
   var maxLen = 0;
   var x1 = 0;
@@ -20,8 +29,18 @@ int tableSmithWaterman(String s1, String s2) {
       }
     }
   }
+
+  return _TableData(table, x1, y1, maxLen);
+}
+
+int tableSmithWaterman(String s1, String s2) {
+  final tableData = _tableSmithWaterman(s1, s2);
+  final table = tableData.table;
+  final x1 = tableData.x1;
+  final y1 = tableData.y1;
+  final maxLen = tableData.maxLen;
   
-  latexPrint(table);
+  print(table);
   var x0 = x1;
   var y0 = y1;
 

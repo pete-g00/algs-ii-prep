@@ -112,18 +112,3 @@ int subsetProblemTrimmed(List<int> values, int target, double val) {
 
   return matches[matches.length-1];
 }
-
-// List<int> _trim(double val, List<int> list) {
-//   final trimmed = <int>[];
-//   var p = list[0];
-//   trimmed.add(p);
-//   for (var i = 1; i < list.length; i++) {
-//     final q = list[i];
-//     if ((1-val)*q > p) {
-//       trimmed.add(q);
-//       p = q;
-//     }
-//   }
-
-//   return trimmed;
-// }

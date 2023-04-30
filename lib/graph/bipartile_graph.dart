@@ -1,21 +1,12 @@
 part of '../graph.dart';
 
-class Vertex {
+class Vertex<A, B> {
   static int _value = 0;
   final int _id;
-  final List<Edge> edges;
-  Edge? mateEdge;
+  final List<Edge<A, B>> edges;
+  Edge<A, B>? mateEdge;
 
   Vertex():_id=_value++, edges=[];
-
-  void addDirectedEdge(Vertex v) {
-    edges.add(Edge(this, v));
-  }
-
-  void addUndirectedEdge(Vertex v) {
-    addDirectedEdge(v);
-    v.addDirectedEdge(this);
-  }
 
   bool get isExposed => mateEdge != null;
 
@@ -38,9 +29,39 @@ class Vertex {
   }
 }
 
-class Edge {
-  final Vertex source;
-  final Vertex range;
+class LeftVertex<A, B> extends Vertex<A, B> {
+  final A entry;
+
+  void addDirectedEdge(RightVertex<A, B> v) {
+    edges.add(Edge(this, v));
+  }
+
+  void addUndirectedEdge(RightVertex<A, B> v) {
+    addDirectedEdge(v);
+    v.addDirectedEdge(this);
+  }
+
+  LeftVertex(this.entry);
+}
+
+class RightVertex<A, B> extends Vertex<A, B> {
+  final B entry;
+
+  void addDirectedEdge(LeftVertex<A, B> v) {
+    edges.add(Edge(v, this));
+  }
+
+  void addUndirectedEdge(LeftVertex<A, B> v) {
+    addDirectedEdge(v);
+    v.addDirectedEdge(this);
+  }
+
+  RightVertex(this.entry);
+}
+
+class Edge<A, B> {
+  final LeftVertex<A, B> source;
+  final RightVertex<A, B> range;
 
   Edge(this.source, this.range);
 
@@ -62,9 +83,9 @@ class Edge {
   }
 }
 
-class BipartileGraph {
+class BipartileGraph<A, B> {
   /// The indices of the left vertices in the list [vertices]
-  final List<Vertex> leftVertices;
+  final List<LeftVertex<A, B>> leftVertices;
 
   /// The number of exposed left vertices
   int _exposedCount;
@@ -73,11 +94,16 @@ class BipartileGraph {
 
   bool get isPerfectMatch => _exposedCount == 0;
 
-  void _recoverEdges(Map<Vertex, Edge> rightPredecessors, Vertex startVertex, Vertex endVertex, Set<Edge> matches) {
+  void _recoverEdges(
+    Map<RightVertex<A, B>, Edge<A, B>> rightPredecessors, 
+    LeftVertex<A, B> startVertex, 
+    RightVertex<A, B> endVertex, 
+    Set<Edge<A, B>> matches
+  ) {
     print(rightPredecessors);
     print('Constructing the list of matching edges');
-    Vertex? rightVertex = endVertex;
-    Vertex? leftVertex;
+    RightVertex<A, B>? rightVertex = endVertex;
+    LeftVertex<A, B>? leftVertex;
     
     do {
       final edge = rightPredecessors[rightVertex]!;
@@ -103,7 +129,7 @@ class BipartileGraph {
     print('The matching is now: $matches');
   }
 
-  bool _augmentingPath(Set<Edge> matches) {
+  bool _augmentingPath(Set<Edge<A, B>> matches) {
     print('Finding an augmenting path');
     if (isPerfectMatch) {
       print('We already have a perfect match!');
@@ -115,11 +141,11 @@ class BipartileGraph {
       if (startVertex.isUnexposed) {
         print('The starting vertex is $startVertex');
         // the vertices (on the right) that are visited
-        final rightVisitedVertices = <Vertex>{};
+        final rightVisitedVertices = <RightVertex<A, B>>{};
         // the predecessor edge for vertices (on the right)
-        final rightPredecessors = <Vertex, Edge>{};
+        final rightPredecessors = <RightVertex<A, B>, Edge<A, B>>{};
 
-        final queue = Queue<Vertex>();
+        final queue = Queue<LeftVertex<A, B>>();
         print('Adding $startVertex to the queue');
         queue.add(startVertex);
 
@@ -154,8 +180,8 @@ class BipartileGraph {
   }
 
   /// Fills out the mates
-  Set<Edge> match() {
-    final matches = <Edge>{};
+  Set<Edge<A, B>> match() {
+    final matches = <Edge<A, B>>{};
     var matched = false;
     do {
       // change the state of mates

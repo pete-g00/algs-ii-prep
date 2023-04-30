@@ -33,13 +33,13 @@ List<int> knapsackWithTraceback(List<int> profits, List<int> weights, int capaci
   int i = profits.length;
   int j = capacity;
   while (table[i][j] > 0) {
-    while (table[i][j] == table[i-1][j]) {
-      print('Going up to row $i');
+    do {
       i--;
-    }
-    subset.add(profits[i-1]);
-    j -= weights[i-1];
-    print('We don\'t have a match anymore- adding the pair (${weights[i-1]}, ${profits[i-1]}) and moving to column $j');
+      print('Going up to row $i');
+    } while (i > 0 && table[i][j] == table[i-1][j]);
+    subset.add(profits[i]);
+    j -= weights[i];
+    print('We don\'t have a match anymore- adding the pair (${weights[i]}, ${profits[i]}) and moving to column $j');
   }
 
   return subset;

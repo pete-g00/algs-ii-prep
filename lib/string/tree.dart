@@ -80,6 +80,8 @@ class _TreeNode {
   String toString() {
     return '($leftIdx, $rightIdx)';
   }
+
+  bool get isLeaf => children.isEmpty;
 }
 
 class Tree {

@@ -1,17 +1,17 @@
-import 'package:classes/graph.dart' show Vertex, BipartileGraph;
+import 'package:classes/graph.dart' show LeftVertex, RightVertex, BipartileGraph;
 
 void main(List<String> args) {
-  final v0 = Vertex();
-  final v1 = Vertex();
-  final v2 = Vertex();
-  final v3 = Vertex();
-  final v4 = Vertex();
+  final v0 = LeftVertex<void, void>(null);
+  final v1 = LeftVertex<void, void>(null);
+  final v2 = LeftVertex<void, void>(null);
+  final v3 = LeftVertex<void, void>(null);
+  final v4 = LeftVertex<void, void>(null);
   
-  final v5 = Vertex();
-  final v6 = Vertex();
-  final v7 = Vertex();
-  final v8 = Vertex();
-  final v9 = Vertex();
+  final v5 = RightVertex<void, void>(null);
+  final v6 = RightVertex<void, void>(null);
+  final v7 = RightVertex<void, void>(null);
+  final v8 = RightVertex<void, void>(null);
+  final v9 = RightVertex<void, void>(null);
 
   v0.addUndirectedEdge(v5);
   v0.addUndirectedEdge(v6);
@@ -26,7 +26,7 @@ void main(List<String> args) {
   v4.addUndirectedEdge(v8);
   
   final leftVertices = [v0, v1, v2, v3, v4];
-  final bipartileGraph = BipartileGraph(leftVertices);
+  final bipartileGraph = BipartileGraph<void, void>(leftVertices);
   
   // find the maximum matching for the bipartile graph
   print(bipartileGraph.match());
