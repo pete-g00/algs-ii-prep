@@ -9,15 +9,15 @@ class MultiB extends B {
 
   MultiB(String label, this.capacity):matchIndices=[], super(label);
 
+  // match index is the worst choice
+  @override
+  int get matchIdx => matchIndices.reduce((value, element) => max(value, element));
+
   /// whether it is possible to add an entry to 
   bool get isUnderSubscribed => matchIndices.length < capacity;
 
   void addMatch(int i) {
     matchIndices.add(i);
-    // match index keeps track of the worst preference
-    if (i > matchIdx) {
-      matchIdx = i;
-    }
   }
 }
 
@@ -45,7 +45,7 @@ void multipleGaleShapley(List<A> aValues, List<MultiB> bValues) {
         final prevAI = b.preferences[b.matchIdx];
         aValues[prevAI].matchIdx ++;
         unmatched.addFirst(prevAI);
-        b.matchIdx = aI;
+        b.addMatch(aI);
       } else {
         print('$b is at capacity and does not prefer $a over its worst match');
         a.matchIdx ++;
